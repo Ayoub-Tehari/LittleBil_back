@@ -24,7 +24,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
+    allow_methods=["GET","POST"],
     allow_headers=["*"],
 )
 
@@ -68,7 +68,7 @@ def decode_jwt_token(token: str):
         raise HTTPException(status_code=401, detail="Invalid token")
 
 # Login endpoint to issue JWT token
-@app.post("/api/login")
+@app.post("/login")
 def login(user: User):
     if user.username in USERS and user.password == USERS[user.username]["password"]:
         token_data = {"sub": user.username}
